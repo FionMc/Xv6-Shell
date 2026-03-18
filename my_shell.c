@@ -3,10 +3,7 @@
 #include "kernel/fcntl.h"
 
 
-/* Print the prompt ">>> " and read a line of characters
-   from stdin. */
 int getcmd(char *buf, int nbuf) {
-  // ##### Place your code here
   int num;
   do { 
     printf(">>> ");
@@ -63,9 +60,7 @@ void run_command(char *buf, int nbuf, int *pcp) {
     if(buf[i] == '>') {
       redirection_right = 1;
     }
-    /* Parse the current character and set-up various flags:
-       sequence_cmd, redirection, pipe_cmd and similar. */
-    /* ##### Place your code here. */
+     
     if(buf[i] != '\n') {
       if(buf[i] != '\0') {
         if(buf[i] != ' ') {
@@ -106,11 +101,8 @@ void run_command(char *buf, int nbuf, int *pcp) {
 
     if (!(redirection_left || redirection_right)) {
       /* No redirection, continue parsing command. */
-      // Place your code here.
     } else {
       /* Redirection command. Capture the file names. */
-      // In for loop still so remember loops for all characters!
-      // ##### Place your code here.
       if(buf[i-2] == '<'){
         file_name_l = &buf[i];
       }
@@ -128,7 +120,6 @@ void run_command(char *buf, int nbuf, int *pcp) {
     sequence_cmd = 0;
     if (fork() != 0) {
       wait(0);
-      // ##### Place your code here.
       // Call run_command recursively
     }
   }
@@ -138,7 +129,6 @@ void run_command(char *buf, int nbuf, int *pcp) {
     tie the specified files to std in/out.
   */
   if (redirection_left) {
-    // ##### Place your code here.
     //Remove file name from arguments
     arguments[numargs-1] = arguments[numargs];
     close(0);
@@ -146,7 +136,6 @@ void run_command(char *buf, int nbuf, int *pcp) {
   }
   
   if (redirection_right) {
-    // ##### Place your code here.
     //Remove file name from arguments
     arguments[numargs-1] = arguments[numargs];
     close(1);
@@ -162,7 +151,6 @@ void run_command(char *buf, int nbuf, int *pcp) {
   */
 
   if (strcmp(arguments[0], "cd") == 0) {
-    // ##### Place your code here.
       close(pcp[0]);
       printf("\n arg[1] = %s", arguments[1]);
       printf("\n arg[1] len = %d", strlen(arguments[1]));
@@ -176,7 +164,6 @@ void run_command(char *buf, int nbuf, int *pcp) {
       Call run_command recursion for the right side of the pipe.
     */
     if (pipe_cmd) {
-      // ##### Place your code here
       int p[2];
       pipe(p);
       //LHS
@@ -201,7 +188,6 @@ void run_command(char *buf, int nbuf, int *pcp) {
     wait(0);
     wait(0);
     } else {
-      // ##### Place your code here.
       // Simple command; call exec()
       exec(arguments[0], arguments);
     }
@@ -226,7 +212,7 @@ int main(void) {
       a CD command and run it if required.
     */
 
-    // ##### Place your code here
+
     /*Place argument/command into exec to run
     exec();*/
    
